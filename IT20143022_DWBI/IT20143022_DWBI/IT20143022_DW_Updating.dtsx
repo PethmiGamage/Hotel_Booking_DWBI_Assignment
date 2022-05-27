@@ -1,0 +1,979 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/16/2022 1:59:12 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-6DL6P0T"
+  DTS:CreatorName="DESKTOP-6DL6P0T\ASUS"
+  DTS:DTSID="{A9DFA1D1-53A7-44B4-B133-DBC90DF154DC}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="IT20143022_DW_Updating"
+  DTS:PackageType="5"
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{88DF4271-CDC6-4938-A045-A392BBB09280}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-6DL6P0T\SQLSERVER1.IT20143022_stagingDB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{D7F545F3-CFA2-4E73-AE9B-44758EDD9D67}"
+      DTS:ObjectName="DESKTOP-6DL6P0T\SQLSERVER1.IT20143022_stagingDB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-6DL6P0T\SQLSERVER1;Initial Catalog=IT20143022_stagingDB;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Update FactService  accm_txn_complete_time"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{CF960F99-FF4D-4901-96B0-C36C0F7BCA73}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Update FactService  accm_txn_complete_time"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Update FactService  accm_txn_complete_time\OLE DB Command"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="OLE DB Command"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">exec dbo.UpdateCompleteTimes ?, ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Update FactService  accm_txn_complete_time\OLE DB Command.Connections[OleDbConnection]"
+                  connectionManagerID="{FD799EAC-7906-4227-AAE9-8C021AB32B80}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-6DL6P0T_SQLSERVER1.IT20143022_DW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Update FactService  accm_txn_complete_time\OLE DB Command.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Update FactService  accm_txn_complete_time\OLE DB Command.Inputs[OLE DB Command Input].Columns[service_id]"
+                      cachedDataType="i2"
+                      cachedName="service_id"
+                      externalMetadataColumnId="Package\Update FactService  accm_txn_complete_time\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[@service_id]"
+                      lineageId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Output].Columns[service_id]" />
+                    <inputColumn
+                      refId="Package\Update FactService  accm_txn_complete_time\OLE DB Command.Inputs[OLE DB Command Input].Columns[accm_txn_complete_time]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="accm_txn_complete_time"
+                      externalMetadataColumnId="Package\Update FactService  accm_txn_complete_time\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[@accm_txn_complete_time]"
+                      lineageId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Output].Columns[accm_txn_complete_time]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Update FactService  accm_txn_complete_time\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[@service_id]"
+                      dataType="i2"
+                      name="@service_id">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Update FactService  accm_txn_complete_time\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[@accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      name="@accm_txn_complete_time">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Update FactService  accm_txn_complete_time\OLE DB Command.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Update FactService  accm_txn_complete_time\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Update FactService  accm_txn_complete_time\OLE DB Command.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Update FactService  accm_txn_complete_time\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Update FactService  accm_txn_complete_time\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Update FactService  accm_txn_complete_time\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Update FactService  accm_txn_complete_time\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Update FactService  accm_txn_complete_time\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Update FactService  accm_txn_complete_time\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[stg_accm_txn_complete_time]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-6DL6P0T\SQLSERVER1.IT20143022_stagingDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-6DL6P0T\SQLSERVER1.IT20143022_stagingDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Output].Columns[service_id]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[service_id]"
+                      lineageId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Output].Columns[service_id]"
+                      name="service_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Output].Columns[accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[accm_txn_complete_time]"
+                      lineageId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Output].Columns[accm_txn_complete_time]"
+                      name="accm_txn_complete_time"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[service_id]"
+                      dataType="i2"
+                      name="service_id" />
+                    <externalMetadataColumn
+                      refId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      name="accm_txn_complete_time" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[service_id]"
+                      dataType="i2"
+                      lineageId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[service_id]"
+                      name="service_id" />
+                    <outputColumn
+                      refId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[accm_txn_complete_time]"
+                      name="accm_txn_complete_time" />
+                    <outputColumn
+                      refId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Update FactService  accm_txn_complete_time.Paths[OLE DB Source Output]"
+              endId="Package\Update FactService  accm_txn_complete_time\OLE DB Command.Inputs[OLE DB Command Input]"
+              name="OLE DB Source Output"
+              startId="Package\Update FactService  accm_txn_complete_time\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Update FactService txn_process_time_hours"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{EE444F69-D64E-4CF7-87FF-06A34E5A9AAC}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Update FactService txn_process_time_hours"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Update FactService txn_process_time_hours\OLE DB Command"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="OLE DB Command"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE [dbo].[FactService]
+SET [txn_process_time_hours] = DATEDIFF (Hh, accm_txn_create_time, accm_txn_complete_time)
+WHERE [ServiceID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Update FactService txn_process_time_hours\OLE DB Command.Connections[OleDbConnection]"
+                  connectionManagerID="{FD799EAC-7906-4227-AAE9-8C021AB32B80}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-6DL6P0T_SQLSERVER1.IT20143022_DW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Update FactService txn_process_time_hours\OLE DB Command.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Command.Inputs[OLE DB Command Input].Columns[ServiceID]"
+                      cachedDataType="i2"
+                      cachedName="ServiceID"
+                      externalMetadataColumnId="Package\Update FactService txn_process_time_hours\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[ServiceID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="i2"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Update FactService txn_process_time_hours\OLE DB Command.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Update FactService txn_process_time_hours\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Update FactService txn_process_time_hours\OLE DB Command.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Update FactService txn_process_time_hours\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Update FactService txn_process_time_hours\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[FactService]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="{FD799EAC-7906-4227-AAE9-8C021AB32B80}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-6DL6P0T_SQLSERVER1.IT20143022_DW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[ServiceID]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ServiceID]"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[ServiceID]"
+                      name="ServiceID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[meal]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[meal]"
+                      length="50"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[meal]"
+                      name="meal"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[leave_Date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[leave_Date]"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[leave_Date]"
+                      name="leave_Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[stays_in_weekend_nights]"
+                      dataType="ui1"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[stays_in_weekend_nights]"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[stays_in_weekend_nights]"
+                      name="stays_in_weekend_nights"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[stays_in_week_nights]"
+                      dataType="ui1"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[stays_in_week_nights]"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[stays_in_week_nights]"
+                      name="stays_in_week_nights"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[total_of_special_requests]"
+                      dataType="ui1"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[total_of_special_requests]"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[total_of_special_requests]"
+                      name="total_of_special_requests"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[DateKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DateKey]"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[DateKey]"
+                      name="DateKey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomerKey]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CustomerKey]"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomerKey]"
+                      name="CustomerKey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[AccommodationKey]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[AccommodationKey]"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[AccommodationKey]"
+                      name="AccommodationKey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[LocationKey]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[LocationKey]"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[LocationKey]"
+                      name="LocationKey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReservationKey]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReservationKey]"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReservationKey]"
+                      name="ReservationKey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[InsertDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[InsertDate]"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[InsertDate]"
+                      name="InsertDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[ModifiedDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ModifiedDate]"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[ModifiedDate]"
+                      name="ModifiedDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[accm_txn_create_time]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[accm_txn_create_time]"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[accm_txn_create_time]"
+                      name="accm_txn_create_time"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[accm_txn_complete_time]"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[accm_txn_complete_time]"
+                      name="accm_txn_complete_time"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[txn_process_time_hours]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[txn_process_time_hours]"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].Columns[txn_process_time_hours]"
+                      name="txn_process_time_hours"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ServiceID]"
+                      dataType="i2"
+                      name="ServiceID" />
+                    <externalMetadataColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[meal]"
+                      dataType="wstr"
+                      length="50"
+                      name="meal" />
+                    <externalMetadataColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[leave_Date]"
+                      dataType="dbTimeStamp"
+                      name="leave_Date" />
+                    <externalMetadataColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[stays_in_weekend_nights]"
+                      dataType="ui1"
+                      name="stays_in_weekend_nights" />
+                    <externalMetadataColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[stays_in_week_nights]"
+                      dataType="ui1"
+                      name="stays_in_week_nights" />
+                    <externalMetadataColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[total_of_special_requests]"
+                      dataType="ui1"
+                      name="total_of_special_requests" />
+                    <externalMetadataColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DateKey]"
+                      dataType="i4"
+                      name="DateKey" />
+                    <externalMetadataColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CustomerKey]"
+                      dataType="i2"
+                      name="CustomerKey" />
+                    <externalMetadataColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[AccommodationKey]"
+                      dataType="i2"
+                      name="AccommodationKey" />
+                    <externalMetadataColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[LocationKey]"
+                      dataType="i2"
+                      name="LocationKey" />
+                    <externalMetadataColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReservationKey]"
+                      dataType="i2"
+                      name="ReservationKey" />
+                    <externalMetadataColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[InsertDate]"
+                      dataType="dbTimeStamp"
+                      name="InsertDate" />
+                    <externalMetadataColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ModifiedDate]"
+                      dataType="dbTimeStamp"
+                      name="ModifiedDate" />
+                    <externalMetadataColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[accm_txn_create_time]"
+                      dataType="dbTimeStamp"
+                      name="accm_txn_create_time" />
+                    <externalMetadataColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      name="accm_txn_complete_time" />
+                    <externalMetadataColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[txn_process_time_hours]"
+                      dataType="i4"
+                      name="txn_process_time_hours" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ServiceID]"
+                      dataType="i2"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ServiceID]"
+                      name="ServiceID" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[meal]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[meal]"
+                      name="meal" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[leave_Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[leave_Date]"
+                      name="leave_Date" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[stays_in_weekend_nights]"
+                      dataType="ui1"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[stays_in_weekend_nights]"
+                      name="stays_in_weekend_nights" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[stays_in_week_nights]"
+                      dataType="ui1"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[stays_in_week_nights]"
+                      name="stays_in_week_nights" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[total_of_special_requests]"
+                      dataType="ui1"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[total_of_special_requests]"
+                      name="total_of_special_requests" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DateKey]"
+                      dataType="i4"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DateKey]"
+                      name="DateKey" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CustomerKey]"
+                      dataType="i2"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CustomerKey]"
+                      name="CustomerKey" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[AccommodationKey]"
+                      dataType="i2"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[AccommodationKey]"
+                      name="AccommodationKey" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[LocationKey]"
+                      dataType="i2"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[LocationKey]"
+                      name="LocationKey" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReservationKey]"
+                      dataType="i2"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReservationKey]"
+                      name="ReservationKey" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[InsertDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[InsertDate]"
+                      name="InsertDate" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ModifiedDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ModifiedDate]"
+                      name="ModifiedDate" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[accm_txn_create_time]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[accm_txn_create_time]"
+                      name="accm_txn_create_time" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[accm_txn_complete_time]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[accm_txn_complete_time]"
+                      name="accm_txn_complete_time" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[txn_process_time_hours]"
+                      dataType="i4"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[txn_process_time_hours]"
+                      name="txn_process_time_hours" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Update FactService txn_process_time_hours.Paths[OLE DB Source Output]"
+              endId="Package\Update FactService txn_process_time_hours\OLE DB Command.Inputs[OLE DB Command Input]"
+              name="OLE DB Source Output"
+              startId="Package\Update FactService txn_process_time_hours\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{CBDE3FD7-60F3-40C3-9330-D266DCBCC9FE}"
+      DTS:From="Package\Update FactService  accm_txn_complete_time"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Update FactService txn_process_time_hours" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="286.4,41.6"
+          Id="Package\Update FactService txn_process_time_hours"
+          TopLeft="230.714289643327,166.705884690928" />
+        <NodeLayout
+          Size="295.2,41.6"
+          Id="Package\Update FactService  accm_txn_complete_time"
+          TopLeft="269.285718871623,73.4117657354547" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="416.885718871623,115.011765735455">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-42.9714292282958,51.6941189554734"
+              Start="0,0"
+              End="-42.9714292282958,44.1941189554734">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.8470594777367" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.8470594777367"
+                    Point2="0,25.8470594777367"
+                    Point3="-4,25.8470594777367" />
+                  <mssgle:LineSegment
+                    End="-38.9714292282958,25.8470594777367" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-38.9714292282958,25.8470594777367"
+                    Point2="-42.9714292282958,25.8470594777367"
+                    Point3="-42.9714292282958,29.8470594777367" />
+                  <mssgle:LineSegment
+                    End="-42.9714292282958,44.1941189554734" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Update FactService txn_process_time_hours">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="164.8,41.6"
+          Id="Package\Update FactService txn_process_time_hours\OLE DB Command"
+          TopLeft="718.5,101.5" />
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Update FactService txn_process_time_hours\OLE DB Source"
+          TopLeft="361,98" />
+        <EdgeLayout
+          Id="Package\Update FactService txn_process_time_hours.Paths[OLE DB Source Output]"
+          TopLeft="510.6,120.55">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="207.9,0"
+              Start="0,0"
+              End="200.4,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="200.4,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Update FactService txn_process_time_hours\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Update FactService  accm_txn_complete_time">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Update FactService  accm_txn_complete_time\OLE DB Source"
+          TopLeft="241.5,97.5" />
+        <NodeLayout
+          Size="164.8,41.6"
+          Id="Package\Update FactService  accm_txn_complete_time\OLE DB Command"
+          TopLeft="513.5,223.5" />
+        <EdgeLayout
+          Id="Package\Update FactService  accm_txn_complete_time.Paths[OLE DB Source Output]"
+          TopLeft="316.3,139.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="279.6,84.4"
+              Start="0,0"
+              End="279.6,76.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.2" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,38.2"
+                    Point2="0,42.2"
+                    Point3="4,42.2" />
+                  <mssgle:LineSegment
+                    End="275.6,42.2" />
+                  <mssgle:CubicBezierSegment
+                    Point1="275.6,42.2"
+                    Point2="279.6,42.2"
+                    Point3="279.6,46.2" />
+                  <mssgle:LineSegment
+                    End="279.6,76.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Update FactService  accm_txn_complete_time\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
